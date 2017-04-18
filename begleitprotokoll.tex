@@ -1,0 +1,78 @@
+\documentclass[12pt,a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage[table,xcdraw,dvipsnames]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+\begin{document}\noindent
+	{\huge \bfseries Begleitprotokoll}
+	\newline
+	\par\noindent
+	\textbf{Name des Schülers:} Sebastian Hirnschall\\
+	\textbf{Thema der Arbeit:}\par Funktionsweise und Schwachstellen von kryptographischen Hashfunktionen\\
+	\textbf{Name der Betreuungsperson:} Mag. Christian Filipp\\
+	
+	
+	\begin{longtable}{| p{.15\textwidth} | p{.85\textwidth} |}
+		\hline
+		\rowcolor[HTML]{C0C0C0} 
+		\multicolumn{1}{|c|}{\cellcolor[HTML]{C0C0C0}Datum} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}\begin{tabular}[c]{@{}c@{}}Vorgangsweise, ausgeführte Arbeiten,\\ verwendete Hilfsmittel, aufgesuchte Bibliotheken,\dots\end{tabular}} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		01.12.2016 & Empirischer Teil der Arbeit fertiggestellt \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		05.12.2016 & \begin{tabular}[c]{@{}l@{}}Abschnitt 2.1 Kryptographische Hashfunktionen\\ -Definition\\ -Beweis\\ -Literatur: Stinson und Schneier\\ -Bibliothek: TU Wien\end{tabular} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		06.12.2016 & Änderung an Abschnitt 2.1 \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		08.12.2016 & \begin{tabular}[c]{@{}l@{}}Abschnitt 2.1 Kryptographische Hashfunktionen\\ -Theorem\\ -Beweis\\ -Abschnitt 2.1 fertiggestellt\end{tabular} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		10.12.2016 & \begin{tabular}[c]{@{}l@{}}-Bruteforce Code optimiert\\ -Änderungen an Abschnitt 2.1\end{tabular} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		12.12.2016 & -Literaturverzeichnis mit Biblatex \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		15.01.2017 & \begin{tabular}[c]{@{}l@{}}Abschnitt 3.1 MD4\\ -Beschreibung des MD4 Algorithmus\end{tabular} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		16.01.2017 & \begin{tabular}[c]{@{}l@{}}Abschnitt 3.1 MD4\\ -Angriffe\\ -Schwachstellen\end{tabular} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		17.01.2017 & \begin{tabular}[c]{@{}l@{}}Abschnitt 3.2 MD5\\ -MD5 Schritte\\ -MD5 Änderungen zu MD4 (Rivest-rfc1320)\end{tabular} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		18.01.2017 & \begin{tabular}[c]{@{}l@{}}Abschnitt 3.1 MD4\\ -Beispielrechnung - händisch\end{tabular} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		22.01.2017 & \begin{tabular}[c]{@{}l@{}}Eine frühe Fassung\\ -SHA\\ -Bitoperatoren\\ -Abschnitt 2 geändert\\ -Unterschiede SHA MD5\\ -Markow-Kette Änderung\\ -Bruteforce Code erklärt\\ -Anhang\\ -Kapitel Verwendung gestrichen um 60Tsd. \\ Zeichen nicht zu überschreiten\end{tabular} \\ \hline
+	\end{longtable}
+	
+	\begin{longtable}{| p{.15\textwidth} | p{.85\textwidth} |}
+		\hline
+		\rowcolor[HTML]{C0C0C0} 
+		\multicolumn{1}{|c|}{\cellcolor[HTML]{C0C0C0}Datum} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}\begin{tabular}[c]{@{}c@{}}Besprechungen mit der betreuenden Lehrperson, \\ Fortschritte, offene Fragen, Probleme, nächste Schritte\end{tabular}} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		22.06.2016 & \begin{tabular}[c]{@{}l@{}}über Sommer:\\ -Theorieteil (Bücher aus TU und Vorträge)\\ -praktischer Teil über Vorträge\\ \\ Aufbau:\\ 1. Hashfunktionen (was? + Programmcode, Funktionen, \\ Schwachstellen)\\ 2. Angriffsmethoden (Vergleich, Muster der PW)\\ Analye bereits im Laufen\\ \\ ca.50:50 (Theorie - Praxis)\end{tabular} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		29.09.2016 & \begin{tabular}[c]{@{}l@{}}-Vorstellen der LaTex-Vorlage (selbst erstellt) – ist O.K.\\ -Besprechen der Zitierweise: direkte Zitate (eingerückt und kursiv)\\ =\textgreater genaues Zitieren in Literaturverzeichnis\\ -Indirekte Zitate: mit Zusatz („Vergleiche“)\\ -selbst erstellte Abbildungen + Code mit Hinweis darauf\\ -In Kopfzeile reicht Hauptkapitel\\ -Formulierung mit „man“ und „ich“ möglichst vermeiden\\ (ausgenommen mathematische Erklärungen)\\ -Zeichenzählen von PDF zu normalem Text\\ (da sonst Sourcecode nicht  mitgezählt werden würde)\end{tabular} \\ \hline
+		\rowcolor[HTML]{EFEFEF} 
+		12.01.2017 & \begin{tabular}[c]{@{}l@{}}-Definitionen, Beweis und Protokoll (5 Schritte) direkt aus Buch\\ übernommen (Hinweis darauf in Fußnote)\\ -bereits besprochen: kryptographischen Hashfunktionen und\\ praktischer Teil (Hash entschlüsseln + Theorie zu Markow-Ketten)\\ -noch zu erledigen:\ Funktionsweise von Hash-Funktionen und\\Hashfunktionen im Vergleich\\ -bis 31.1.: Endfassung -\textgreater Rückmeldung bis 3.2.\\ -letzter Abgabetermin: 17.2. (in 3 fach gebundener Ausfertigung)\\ -Termin zur Besprechung der Präsentation: 2.3. / 13: 20 (Columbus)\end{tabular} \\ \hline
+	\end{longtable}\noindent
+	Die Arbeit hat eine Länge von $57~890$ Zeichen.
+	
+	\vspace{100pt}
+	\noindent\rule{5cm}{.4pt}\hfill\rule{5cm}{.4pt}\par
+	\noindent 
+	\begin{minipage}{5cm}
+		\centering
+		Datum, Ort
+	\end{minipage}  
+	\hfill 
+	\begin{minipage}{5cm}
+		\centering
+		Sebastian Hirnschall
+	\end{minipage}
+	
+	\newpage
+\end{document}

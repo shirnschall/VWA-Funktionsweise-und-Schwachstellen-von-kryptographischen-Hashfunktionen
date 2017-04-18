@@ -1,0 +1,23 @@
+*.xlsx
+backup/
+*.aux
+*.log
+*.blg
+*.bbl
+*.out
+*.lot
+*.toc
+*.lof
+*.gz
+*.synctex.gz
+Uni/
+*.xml
+*.run.xml
+*.bcf
+output.txt
+vwa - md4-bck.pdf
+vwa - md4-bck.tex
+vwa - versionFilippBackup.tex
+vorlage-alt.tex
+vorlage.pdf
+vorlage.tex

@@ -1,0 +1,331 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usetheme{PaloAlto}
+
+
+% Titel und Author aus der sidebar entfernen
+\makeatletter
+\setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
+{
+	\beamer@tempdim=\beamer@sidebarwidth%
+	\advance\beamer@tempdim by -6pt%
+	\insertverticalnavigation{\beamer@sidebarwidth}%
+	\vfill
+	\ifx\beamer@sidebarside\beamer@lefttext%
+	\else%
+	\usebeamercolor{normal text}%
+	\llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+	\vskip2pt%
+	\fi%
+}%
+\makeatother
+
+\title{Heterogenes agentenbasiertes Finanzmarktmodell mit einem einzigen asset, das via order book gehandelt wird}
+\author{David Hirnschall}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\begin{frame}{Inhalt}
+		\tableofcontents	
+	\end{frame}
+	
+\section{Begriffe}
+\subsection{Agentenbasiertes Modell}
+	\begin{frame}{Agentenbasiertes Modell}
+		\begin{block}{Allgemein}
+			\begin{itemize}
+				\item Agenten repräsentieren Marktteilnehmer
+				\item Bottom-Up Aufbau	
+				\item Intelligenz der Agenten variiert
+			\end{itemize}
+		\end{block}
+		\begin{block}{In unserem Modell}
+			\begin{itemize}
+				\item Agenten folgen einfachen Faustregeln, die auch reale Händler benutzen
+			\end{itemize}	
+		\end{block}
+	\end{frame}
+\subsection{Double Aution Orderbook}
+	\begin{frame}{Double Auction Orderbook I}
+		\begin{block}{market orders}	
+			\begin{itemize}
+				\item tragen zur Liquidität des Marktes bei
+				\item werden sofort zum bestmöglichen Preis ausgeführt
+			\end{itemize}
+		\end{block}
+		\begin{block}{limit orders}
+			\begin{itemize}
+				\item Pool von Angebot und Nachfrage
+				\item fixieren den gewünschten Preis, garantieren aber keine Ausübung
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Double Aution Orderbook II}	
+		\begin{figure}[h!]
+			\includegraphics[width=10cm]{LOB.png}
+			\caption{limit order book vor und nach der Ausübung einer market order}
+		\end{figure}
+		\begin{exampleblock}{Beispiel}
+			Agent möchte $5$ Einheiten kaufen:
+			$2*20.27+3*20.28=47.38\$$ sind zu bezahlen
+		\end{exampleblock}	
+	\end{frame}
+\section{Das Modell}
+\subsection{Eigenschaften}
+	\begin{frame}{Das Modell}
+		\begin{itemize}
+			\item N Agenten handeln ein einziges risikobehaftetes asset
+			\item Gehandelt wird via order book
+			\item Population der Agenten wird in zwei Gruppen eingeteilt
+			\begin{itemize}
+				\item fundamentale Agenten
+				\item technische Agenten
+			\end{itemize}
+			\item Parameter die das Verhalten der Agenten festlegen werden am Anfang jeder Simulation bestimmt
+			\item Agenten besitzen unbegrenztes Kapital
+			\item shortselling ist erlaubt
+		\end{itemize}	
+	\end{frame}
+\subsection{Agenten}
+\subsubsection{Technische Agenten}
+	\begin{frame}{Agenten}
+		\begin{block}{Technische Agenten}	
+			\begin{itemize}
+				\item Versuchen mit technischen Analysemitteln einen Trend im Kurs des assets zu erkennen
+				\item Verwenden in diesem Modell den Moving-Average-Oscillator als Indikator 
+				\item reagieren unterschiedlich schnell auf die Signale des Indikators
+				\item profit taking
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Agenten II}
+		\begin{figure}[h!]	
+			\centering		
+			\includegraphics[width=8cm]{Imagenes/MAO-final.png}
+			\caption{Funktionsweise des Moving-Average-Oscillators}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Agenten III}
+		\begin{figure}[h!]
+			\includegraphics[width=8cm]{Imagenes/Profit_Taking-final.png}
+			\caption{Übersteigt der aktuelle Preis jenen zum Zeitpunkt des Signales um einen Faktor $\gamma$, also $(1+\gamma)P_{Signal}>P_t$, wird verkauft.}
+		\end{figure}
+	\end{frame}
+\subsubsection{Fundamentale Agenten}
+	\begin{frame}{Agenten IV}
+		\begin{block}{Fundamentale Agenten}
+			\begin{itemize}
+				\item machen zukünftiges Verhalten von ökonimischen Werten abhängig
+				\item berechnen fundamental price $p_{f}$
+				\item platzieren Kauf- bzw. Verkauforders, wenn der tatsächliche Preis unter bzw. über $p_{f}$ liegt
+				\item adjustieren $p_f$ aufgrund der erhaltenen Informationen 
+				\item market order vs. limit order
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Agenten V}
+		\begin{figure}[!h]
+			\centering
+			\includegraphics[width=0.7\textwidth]{Imagenes/TeoriaModelo/Order_Type_Selection_Funds}
+			\caption{Orderauswahl(Kauforder) Algorithmus für fundamentale Agenten.}
+			\label{fig:FundsOrderSelection}
+		\end{figure}
+		$B_{sell} \dots$ billigster möglicher Kaufpreis \\
+		$X_{market} \dots$ festgelegte Schranke
+	\end{frame}
+
+\section{Resultate}	
+	\begin{frame}{Resultate I}
+		\begin{itemize}
+			\item Resultate aus zahlreichen Simulationen 
+			\item Veränderung der Parameter bringt keine qualitativen Unterschiede der Eigenschaften
+			\item 1000 fundamentale Agenten und 1500 technischen Agenten
+			\item technische Agenten in zwei Gruppen unterteilt
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Resultate II}
+		\begin{figure}[!h]
+			\centering
+			
+			\begin{subfigure}[b]{0.7\textwidth}
+				\includegraphics[width=\textwidth]{Imagenes/ResultadosModeloCompleto/ReturnsSeries}
+			
+			\end{subfigure}
+			
+				\caption{Zeitreihe der returns $r(t)=log(P_t/P_{t-\tau})$.}
+		\end{figure}
+	$\tau \dots$ Zeitintervall\\
+	\end{frame}
+
+	\begin{frame}{Resultate III}
+		\begin{figure}[!h]
+			\centering
+			\includegraphics[width=0.7\textwidth]{Imagenes/ResultadosModeloCompleto/AbsenceAutoCorrelation}
+			\caption{Autokorrelationfunktion der returns. Es ist quasi keine Korrelation vorhanden für die meisten Zeitdifferenzen, bis auf die negative Korrelation, die nur die ersten paar Schritte übersteht. Dieses Phenomen wird auch in realen Zeitreihen von return beobachtet und \textit{bid-ask bounce} genannt. }
+		\end{figure} 
+	\end{frame}
+
+	\begin{frame}{Resultate IV}
+		\begin{figure}[!h]
+			\centering
+			\begin{subfigure}[b]{0.7\textwidth}
+				\includegraphics[width=\textwidth]{Imagenes/ResultadosModeloCompleto/ReturnsPDF}
+			\end{subfigure}
+			\caption{Verteilungsfunktion der returns}
+		\end{figure}
+		\begin{block}{Heavy-tailed-Verteilung}
+			Die Schwänze der Verteilung fallen deutlich stärker aus als die, der Normalverteilung, dh. extreme Ereignisse sind wahrscheinlicher.
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Resultate V}
+		\begin{figure}[!h]
+			\centering
+			\begin{subfigure}[b]{0.6\textwidth}
+				\includegraphics[width=\textwidth]{Imagenes/ResultadosModeloCompleto/ReturnsCDFAssymetry}
+			\end{subfigure}
+			\caption{Komplementäre Verteilungsfunktion}
+		\end{figure}
+		\begin{block}{Schiefe zwischen positiven und negativen returns}
+			Der Schwanz der negativen returns (rot) ist signifikant höher als der der positiven (blau), was die Schiefe der Verteilung wiederspiegelt.
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Resultate VI}
+		\begin{figure}[!h]
+			\begin{subfigure}[b]{0.45\textwidth}
+				\includegraphics[width=\textwidth]{Imagenes/ResultadosModeloCompleto/LeftTailIndex-gamma-0400}
+				\caption{Negative returns}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.45\textwidth}
+				\includegraphics[width=\textwidth]{Imagenes/ResultadosModeloCompleto/RightTailIndex-gamma-0400}
+				\caption{Positive returns}
+			\end{subfigure}
+			\caption{Komplementäre Verteilugsfunktionen und ihre Annäherung durch eine Exponentialfunktion (für $\gamma=0.0400$).}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Resultate VII}
+		\begin{block}{Normalverteilung vs. Exponentialfunktion}
+			\begin{table}[!h]
+				\centering
+				\begin{tabular}{ccccc}
+					\hline
+					\cline{1-5}
+					& $<R_{-}>$  & $<p_{-}>$  & $<R_{+}>$ & $<p_{+}>$\\
+					\hline
+					$\gamma=0.0025$ & -0.006 & 0.595 & -0.032 & 0.057\\
+					$\gamma=0.0225$ & 0.004 & 0.597 & -0.053 & 0.623\\
+					$\gamma=0.0400$ & -0.050 & 0.609 & 0.203 & 0.489\\
+					\hline
+				\end{tabular}
+				\caption{Mittelwerte der log-likelihood ratios $<R>$ zwischen der Annäherung durch eine
+					Exponentialfunktion und durch eine Normalverteilung als auch mittlere Signifikanzwerte
+					$<p>$. Die Werte entsprechen drei ausgewählten Fällen unseres Modelles für verschiedene Werte von $\gamma$.  $<R_{-}>$ und $<R_{+}>$ stehen für die
+					log-likelihoods des linken bzw. rechten Schwanzes. $<p_{-}>$ und $<p_{+}>$ stehen also für die mittleren Signifikanzwerte des linken bzw. rechten Schwanzes.}
+			\end{table}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Resultate VIII}
+		\begin{figure}[!h]
+			\centering
+			\begin{subfigure}[b]{0.7\textwidth}
+				\includegraphics[width=\textwidth]{Imagenes/ResultadosModeloCompleto/VolatilitiesPDF}
+			\end{subfigure}
+			\caption{Verteilung der Volatilität}
+		\end{figure}
+		\begin{block}{Simulation mit technischen Agenten}
+			Die Verteilung der Volatilität stimmt nur im mittleren Teil gut mit einer Lognormalverteilung überein.
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Resultate IX}
+		\begin{figure}[!h]
+			\centering
+			\includegraphics[width=0.7\textwidth]{Imagenes/ResultadosModeloIncompleto/VolatilitiesPDF_SinTecnicos}
+			\caption{Verteilung der Volatilitäten}
+		\end{figure}
+		\begin{block}{Simulation ohne technische Agenten}
+			Die Verteilung der Volatilitäten wird fast überall gut durch eine Lognormalverteilug beschrieben.
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Resultate X}
+		\begin{figure}[!h]
+			\centering
+			\begin{subfigure}[b]{0.7\textwidth}
+				\includegraphics[width=\textwidth]{Imagenes/ResultadosModeloIncompleto/Fundamentals_MarketOrders_Flow}
+			\end{subfigure}	
+			\caption{Handelsvolumen der Simulation ohne technische Agenten. Die eingefügte Figur zeigt die Verteilung des Flusses der orders}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Resultate XI}
+		\begin{figure}
+			\begin{subfigure}[b]{0.7\textwidth}
+				\includegraphics[width=\textwidth]{Imagenes/ResultadosModeloCompleto/MarketOrdersFlow}	
+			\end{subfigure}
+			\caption{Handelsvolumen der Simulation mit technischen Agenten. Die eingefügte Figur zeigt die Verteilung des Flusses der orders}	
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Resultate XII}
+		\begin{block}{Interpretation}
+			\begin{itemize}
+				\item Mehrheit der Volatilitäten wird in beiden Fällen gut durch die Lognormalverteilung approximiert
+				\item Der Fluss der orders unterscheidet sich in den beiden Fällen maßgeblich
+				\item Orderbook beeinflusst den Markt dahingehend, dass die Preisschwankungen nur schwach von der Verteilung der platzierten orders abhängt
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Resultate XIII}
+		\begin{figure}[!h]
+			
+			\centering
+			\includegraphics[width=0.7\textwidth]{Imagenes/Plot_Asymmetry}
+			\caption{Mittlere Schräge der Verteilung der returns als Funktion der profit taking Schranke $\gamma$. Wenn $\gamma$ kleine Werte annimmt, wird mehr profit taking benutzt und die Schräge der Verteilung nimmt kleinere Werte an.}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Resultate XIV}
+		\begin{figure}[!h]
+			\centering
+			\includegraphics[width=0.7\textwidth]{Imagenes/Colectividades/Plot_Kurtosis}
+			\caption{Mittlere Wölbung der Verteilung der returns als Funktion des Anteils der technischen Agenten in der Bevölkerung. Steigt der Anteil an technischen Agenten in der Simulation, dann auch die Wölbung.}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Erweiterungsmöglichkeiten des Modells}
+		\begin{block}{Bedeutung der Nachfrage erhöhen}
+			\begin{itemize}
+			\item Anzahl der assets erhöhen
+			\item Kapital der Agenten beschränken
+			\end{itemize}
+		\end{block}
+		\begin{block}{Erholung des Marktes testen}
+			\begin{itemize}
+				\item katastrophale Nachrichten einbauen
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}
+		Vielen Danke für Ihre Aufmerksamkeit!
+	\end{frame}
+
+\end{document}
