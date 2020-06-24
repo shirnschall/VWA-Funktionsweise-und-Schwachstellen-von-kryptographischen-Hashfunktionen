@@ -1,4 +1,4 @@
 # VWA-Funktionsweise-und-Schwachstellen-von-kryptographischen-Hashfunktionen
 
 
-[PDF Download](https://hirnschall.net/downloads/download.php?file=vwa.pdf)
+[PDF Download at hirnschall.net](https://hirnschall.net/downloads/download.php)
